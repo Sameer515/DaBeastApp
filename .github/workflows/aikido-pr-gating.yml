@@ -1,0 +1,30 @@
+name: Aikido PR Gating
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  aikido-pr-scan:
+    runs-on: ubuntu-latest
+    container:
+      image: aikidosecurity/local-scanner:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: my-repo
+          fetch-depth: 0 # Important: Required to compare the PR commits
+
+      - name: Run Aikido PR Gating
+        run: |
+          cd my-repo
+          aikido-local-scanner scan . \
+            --apikey ${{ secrets.AIKIDO_API_KEY }} \
+            --repositoryname "DaBeastApp" \
+            --branchname ${{ github.head_ref }} \
+            --gating-mode pr \
+            --fail-on high \
+            --base-commit-id ${{ github.event.pull_request.base.sha }} \
+            --head-commit-id ${{ github.event.pull_request.head.sha }}
