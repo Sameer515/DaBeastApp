@@ -1,0 +1,24 @@
+name: Aikido Repo Scan
+on:
+  push:
+    branches:
+      - main # Change to lets-git-sum if that is your main branch
+
+jobs:
+  aikido-local-scan-repo:
+    runs-on: ubuntu-latest
+    container:
+      image: aikidosecurity/local-scanner:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: my-repo
+
+      - name: Run scan
+        run: |
+          aikido-local-scanner scan my-repo \
+            --apikey ${{ secrets.AIKIDO_API_KEY }} \
+            --repositoryname "DaBeastApp" \
+            --branchname main
