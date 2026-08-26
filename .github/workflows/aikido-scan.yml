@@ -20,6 +20,6 @@ jobs:
         run: |
           aikido-local-scanner scan my-repo \
             --apikey ${{ secrets.AIKIDO_API_KEY }} \
-         --repositoryname "DaBeastApp" \
-         --branchname main \
-         --force-create-repository-for-branch
+          --repositoryname "DaBeastApp" \
+          --branchname main \
+          --force-create-repository-for-branch
