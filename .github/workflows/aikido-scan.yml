@@ -2,7 +2,7 @@ name: Aikido Repo Scan
 on:
   push:
     branches:
-      - main # Change to lets-git-sum if that is your main branch
+      - main
 
 jobs:
   aikido-local-scan-repo:
@@ -20,6 +20,6 @@ jobs:
         run: |
           aikido-local-scanner scan my-repo \
             --apikey ${{ secrets.AIKIDO_API_KEY }} \
-          --repositoryname "DaBeastApp" \
-          --branchname main \
-          --force-create-repository-for-branch
+            --repositoryname "DaBeastApp" \
+            --branchname main \
+            --force-create-repository-for-branch
