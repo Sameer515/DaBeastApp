@@ -21,4 +21,5 @@ jobs:
             --apikey ${{ secrets.AIKIDO_API_KEY }} \
             --repositoryname "DaBeastApp" \
             --branchname main \
-            --fail-on high
+            --fail-on high \
+            --force-create-repository-for-branch
